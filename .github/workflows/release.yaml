@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  IMAGE_TAG: quay.io/${{ secrets.REPOSITORY_USERNAME }}/video-server:${{ github.ref_name }}
+  IMAGE_TAG: quay.io/${{ secrets.REPOSITORY_USERNAME }}/video-server:${{ GITHUB_SHA }}
 
 jobs:
 
