@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  IMAGE_TAG: quay.io/${{ secrets.REPOSITORY_USERNAME }}/video-server:${{ GITHUB_SHA }}
+  IMAGE_TAG: quay.io/${{ secrets.REPOSITORY_USERNAME }}/video-server:${{ github.sha }}
 
 jobs:
 
@@ -52,7 +52,7 @@ jobs:
     - name: Changing image tag in helm charts
       uses: mikefarah/yq@master
       with:
-        cmd: yq -i '.image.tag = "${{ GITHUB_SHA }}"' /dunefro/sample-charts/charts/video-server/values.yaml
+        cmd: yq -i '.image.tag = "${{ github.sha }}"' /dunefro/sample-charts/charts/video-server/values.yaml
     
     - name: Pushing updated helm charts
       uses: cpina/github-action-push-to-another-repository@main
