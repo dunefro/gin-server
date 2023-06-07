@@ -42,3 +42,25 @@ jobs:
     - name: Print image tags
       run: |
         echo "${{ env.IMAGE_TAG }}"
+
+    - name: Checking out the charts code
+      uses: actions/checkout@v3
+      with:
+        repository: dunefro/sample-charts
+        path: /dunefro
+    
+    - name: Changing image tag in helm charts
+      uses: mikefarah/yq@master
+      with:
+        cmd: yq -i '.image.tag = "${{ GITHUB_SHA }}"' /dunefro/sample-charts/charts/video-server/values.yaml
+    
+    - name: Pushing updated helm charts
+      uses: cpina/github-action-push-to-another-repository@main
+      env:
+        SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+      with:
+        source-directory: "/dunefro/sample-charts/"
+        destination-github-username: "dunefro"
+        destination-repository-name: "sample-charts/"
+        user-email: dunefro@gmail.com
+        target-branch: "image-update"
