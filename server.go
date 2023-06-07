@@ -25,5 +25,5 @@ func main() {
 	server.POST("/videos", func(ctx *gin.Context) {
 		ctx.JSON(200, videoController.Save(ctx))
 	})
-	server.Run("localhost:9090")
+	server.Run(":9090")
 }
