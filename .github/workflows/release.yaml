@@ -31,13 +31,13 @@ jobs:
         username: ${{ secrets.REPOSITORY_USERNAME }}
         password: ${{ secrets.REPOSITORY_PASSWORD }}
 
-    - name: Build and push docker image
-      uses: docker/build-push-action@v3
-      with:
-        context: .
-        push: true
-        tags: ${{ env.IMAGE_TAG }}
-        platforms: linux/amd64,linux/arm64
+    # - name: Build and push docker image
+    #   uses: docker/build-push-action@v3
+    #   with:
+    #     context: .
+    #     push: true
+    #     tags: ${{ env.IMAGE_TAG }}
+    #     platforms: linux/amd64,linux/arm64
     
     - name: Print image tags
       run: |
@@ -51,7 +51,7 @@ jobs:
 
     - name: Print contents of sample-charts
       run: |
-        ls -lrt .dunefro/
+        ls -lrt ./
     
     - name: Changing image tag in helm charts
       uses: mikefarah/yq@master
