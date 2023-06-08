@@ -51,7 +51,7 @@ jobs:
 
     - name: Print contents of sample-charts
       run: |
-        ls -lrt ./sample-charts
+        ls -lrt ./
     
     - name: Changing image tag in helm charts
       uses: mikefarah/yq@master
