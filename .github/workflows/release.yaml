@@ -47,23 +47,23 @@ jobs:
       uses: actions/checkout@v3
       with:
         repository: dunefro/sample-charts
-        path: ./dunefro
+        # path: ./dunefro
 
     - name: Print contents of sample-charts
       run: |
-        ls -lrt ./
+        ls -lrt ./sample-charts
     
     - name: Changing image tag in helm charts
       uses: mikefarah/yq@master
       with:
-        cmd: yq -i '.image.tag = "${{ github.sha }}"' ./dunefro/charts/video-server/values.yaml
+        cmd: yq -i '.image.tag = "${{ github.sha }}"' ./sample-charts/charts/video-server/values.yaml
     
     - name: Pushing updated helm charts
       uses: cpina/github-action-push-to-another-repository@main
       env:
         SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
       with:
-        source-directory: "./dunefro/sample-charts/"
+        source-directory: "./sample-charts/"
         destination-github-username: "dunefro"
         destination-repository-name: "sample-charts/"
         user-email: dunefro@gmail.com
