@@ -48,11 +48,15 @@ jobs:
       with:
         repository: dunefro/sample-charts
         path: ./dunefro
+
+    - name: Print contents of sample-charts
+      run: |
+        ls -lrt .dunefro/
     
     - name: Changing image tag in helm charts
       uses: mikefarah/yq@master
       with:
-        cmd: yq -i '.image.tag = "${{ github.sha }}"' ./dunefro/sample-charts/charts/video-server/values.yaml
+        cmd: yq -i '.image.tag = "${{ github.sha }}"' ./dunefro/charts/video-server/values.yaml
     
     - name: Pushing updated helm charts
       uses: cpina/github-action-push-to-another-repository@main
